@@ -1,56 +1,70 @@
-# Fluid Flow & Thermal Systems Engineering Computing Suite
+# Fluid Flow & Heat Transfer Engineering Suite
 
-An interactive, multi-module computational engineering platform for fluid mechanics, thermal transport, and reservoir petrophysics. Built with an Object-Oriented Architecture (OOP) in Python (`Streamlit`, `NumPy`, `SciPy`, `Pandas`, `Plotly`) and companion TypeScript engineering utilities.
+An interactive engineering computing application developed with Python and Streamlit.
 
----
+The application combines computational engineering calculations, object-oriented programming, data analysis, visualization, and interactive user interfaces.
 
-## 🌟 Executive Summary & Key Modules
+## Live Application
 
-| Module | Core Physical Principles | Key Features & Visualizations |
-| :--- | :--- | :--- |
-| **Module A: Pipe Flow Analyser** | Darcy-Weisbach & Colebrook-White implicit friction equation | Interactive $\Delta P \text{ vs. } Q$ curves, laminar/transitional/turbulent flow detection, Colebrook root-solver via Brent's method with Haaland initialization, CSV hydraulic profile export. |
-| **Module B: Heat Transfer Calculator** | 1D Fourier steady conduction & Lumped Capacitance (Newton's cooling) | Multi-layer temperature profile cross-sections, transient cooling curves ($T(t) \text{ vs. } t$) with analytical time-to-target resolution and logarithmic asymptotic guards. |
-| **Module C: Rock & Fluid Dashboard** | Petrophysical core evaluation & Kozeny-Carman permeability | 40-sample core plug dataset analysis, dynamic porosity cut-off filtering, summary statistical tables, semi-log $\phi \text{ vs. } k$ crossplots, filtered data export. |
-| **Module D: Code Quality & Testing** | Automated testing, OOP design, and deployment | Full `pytest` unit test suite, strict input validation, comprehensive verification benchmarks, and Streamlit Cloud configuration. |
+[Launch the Fluid Flow & Heat Transfer Engineering Suite](https://fluid-engineering-suite.streamlit.app/)
 
----
+## GitHub Repository
 
-## 🚀 Live Demonstration & Deployment
+https://github.com/babanawo1/fluid-engineering-suite
 
-* **Live Streamlit Web Application**: [Deploy via Streamlit Community Cloud](https://share.streamlit.io/)
-* **Repository**: `https://github.com/<your-username>/fluid-engineering-suite`
-* **Entry Point**: `app.py`
+## Modules
 
----
+### Module A — Pipe Flow Analyser
 
-## ⚙️ Architecture & Numerical Methods
+- Fluid property selection
+- Pipe geometry and flow-rate inputs
+- Velocity calculation
+- Reynolds number
+- Flow regime identification
+- Darcy friction factor
+- Pressure-drop calculation
+- Pressure-drop versus flow-rate visualization
+- CSV export
 
-### 1. Robust Colebrook-White Root Solving
-The implicit Colebrook-White formulation for turbulent friction factor ($f$):
-$$\frac{1}{\sqrt{f}} = -2 \log_{10}\left( \frac{\epsilon / D}{3.7} + \frac{2.51}{\text{Re} \sqrt{f}} \right)$$
+### Module B — Heat Transfer Calculator
 
-To guarantee convergence across arbitrary Reynolds numbers ($\text{Re} \ge 4000$) and relative roughness values ($\epsilon/D \in [0, 0.05]$), the solver utilizes **Brent's method** bounded in $[0.005, 0.15]$, seeded with an explicit **Haaland initial estimate**:
-$$f_0 = \left[ -1.8 \log_{10}\left( \left(\frac{\epsilon/D}{3.7}\right)^{1.11} + \frac{6.9}{\text{Re}} \right) \right]^{-2}$$
+- Steady-state conduction through a flat wall
+- Newton's Law of Cooling
+- Cooling-time calculation
+- Interactive temperature-versus-time cooling curve
+- Physical descriptions and unit guidance
 
-### 2. Transient Thermal System Validation
-Newton's Law of Cooling is governed by the characteristic time constant $\tau = \frac{\rho V c_p}{h A_s}$:
-$$T(t) = T_\infty + (T_0 - T_\infty) e^{-t / \tau}$$
-$$t_{\text{target}} = -\tau \ln\left( \frac{T_{\text{target}} - T_\infty}{T_0 - T_\infty} \right)$$
-*Built-in guards reject unphysical conditions where $T_{\text{target}}$ lies outside the open interval between $T_0$ and $T_\infty$.*
+### Module C — Rock & Fluid Data Dashboard
 
----
+- User CSV file upload
+- Summary statistics
+- Porosity filtering
+- Porosity histogram
+- Porosity-permeability crossplot
+- Filtered CSV export
 
-## 💻 Local Setup & Execution
+## Technologies
 
-### Prerequisites
-* Python 3.9+ 
-* `pip` package manager
+- Python
+- Streamlit
+- Pandas
+- NumPy
+- Matplotlib
+- Object-Oriented Programming
+- CSV data processing
 
-### 1. Clone & Install Dependencies
-```bash
-# Clone the repository
-git clone https://github.com/<your-username>/fluid-engineering-suite.git
-cd fluid-engineering-suite
+## Project Structure
 
-# Install required Python packages
-pip install -r requirements.txt
+```text
+fluid-engineering-suite/
+├── app.py
+├── engineering.py
+├── requirements.txt
+├── pages/
+│   ├── 1_Pipe_Flow_Analyser.py
+│   ├── 2_Heat_Transfer.py
+│   └── 3_Rock_Fluid_Dashboard.py
+├── data/
+├── utils/
+├── tests/
+└── docs/
